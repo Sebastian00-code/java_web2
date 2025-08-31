@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/asignaturas")
@@ -22,5 +19,26 @@ public class AsignaturaController {
     public Page<Asignatura> getAll(@RequestParam int page, @RequestParam int size) {
         Pageable pageable = PageRequest.of(page, size);
         return asignaturaService.findAll(pageable);
+    }
+
+    @GetMapping("/{id}")
+    public Asignatura getById(@RequestParam long id) {
+        return asignaturaService.findById(id).
+                orElseThrow(() -> new RuntimeException("Asignatura no encontrada con ese id: " + id));
+    }
+
+    @PostMapping
+    public Asignatura create(@RequestBody Asignatura asignatura) {
+        return asignaturaService.create(asignatura);
+    }
+
+    @PutMapping("/{id}")
+    public Asignatura update(@PathVariable Long id, @RequestBody Asignatura asignatura) {
+        return asignaturaService.update(id, asignatura);
+    }
+
+    @DeleteMapping
+    public void delete(@PathVariable Long id) {
+        asignaturaService.deleteById(id);
     }
 }
