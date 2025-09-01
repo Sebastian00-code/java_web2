@@ -5,10 +5,7 @@ import com.sena.java_web2.service.AlumnoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/alumnos")
@@ -26,4 +23,25 @@ public class AlumnoController {
         return alumnoService.findAll(pageable);
     }
 
+    @GetMapping("/{id}")
+    public Alumno getById(@PathVariable Long id) {
+        return alumnoService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Alumno no encontrado con id: " + id));
+    }
+
+    @PostMapping
+    public Alumno create(@RequestBody Alumno alumno) {
+        return alumnoService.create(alumno);
+    }
+
+    @PutMapping("/{id}")
+    public Alumno update(@PathVariable Long id, @RequestBody Alumno alumno) {
+        return alumnoService.update(id, alumno);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        alumnoService.deleteById(id);
+    }
 }
+
