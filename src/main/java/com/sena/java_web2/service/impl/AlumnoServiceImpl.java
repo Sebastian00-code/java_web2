@@ -1,7 +1,6 @@
 package com.sena.java_web2.service.impl;
 
 import com.sena.java_web2.model.Alumno;
-import com.sena.java_web2.model.Profesor;
 import com.sena.java_web2.repository.AlumnoRepository;
 import com.sena.java_web2.repository.ProfesorRepository;
 import com.sena.java_web2.service.AlumnoService;
